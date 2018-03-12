@@ -1,1 +1,1 @@
-Java 8 Examples
+JavaScript examples for training batch @ Sajix @ 2018-03-12 

@@ -1,1 +1,1 @@
-JavaScript examples for training batch @ Sajix @ 2018-03-12 
+**This repository consists JavaScript examples from my learning and practice.**

@@ -1,0 +1,30 @@
+<html>
+	<head>AJAX</head>
+	<body>
+		<h1>Madan</h1>
+		<div id="content" style="border: 2px red solid;">
+			
+		</div>
+		<button onclick="loadContent()">Load Content</button>
+	</body>
+
+	<script type="text/javascript">
+		function loadContent(){
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && 
+			    	this.status == 200) {
+			     	document
+			     		.getElementById("content")
+			     		.innerHTML =
+			     		 this.responseText;
+			    }
+			};
+
+			xhttp.open("GET", "021_AJAX_page.html", true);
+
+			xhttp.send();
+
+		};
+	</script>
+</html>

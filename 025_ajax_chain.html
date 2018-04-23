@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AJAX calls - One after another</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h3>Chaining AJAX Calls</h3>
+
+    <h4>Countries - Name contains with 'Ind'</h4>
+    <div id="countries-ind"></div>
+    <p></p>
+
+    <h4>Countries - Language is 'English'</h4>
+    <div id="countries-eng"></div>
+    <p></p>
+
+    <h4>Countries - Currency is 'INR'</h4>
+    <div id="countries-inr"></div>
+    <p></p>
+
+    <button id="load-button">Load Data</button>
+
+
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+    <script>
+
+        $(document).ready(function(){
+            $("#load-button").click(function(){
+
+                $.ajax({
+                    "url":"https://restcountries.eu/rest/v2/name/ind"
+                }).then(function(response){
+                    if(response.length > 0){
+                        for(var i = 0; i < response.length; i++){
+                            $("#countries-ind").append(response[i].name);
+                            $("#countries-ind").append("<br/>");
+                        }
+                    }
+
+                    return $.ajax({
+                        "url":"https://restcountries.eu/rest/v2/lang/en"
+                    });
+                }).then(function(response){                    
+                    if(response.length > 0){
+                        for(var i = 0; i < 5; i++){
+                            $("#countries-eng").append(response[i].name);
+                            $("#countries-eng").append("<br/>");
+                        }
+                    }
+
+                    return $.ajax({
+                        "url":"https://restcountries.eu/rest/v2/currency/inr"
+                    });
+                }).then(function(response){
+                    if(response.length > 0){
+                        for(var i = 0; i < response.length; i++){
+                            $("#countries-inr").append(response[i].name);
+                            $("#countries-inr").append("<br/>");
+                        }
+                    }
+                });
+
+
+            });
+        });
+    </script>
+</body>
+</html>

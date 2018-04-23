@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AJAX wait</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>AJAX Wait till multiple calls are done</h3>
+
+    <h4>Countries - Name contains with 'Ind'</h4>
+    <div id="countries-ind"></div>
+    <p></p>
+
+    <h4>Countries - Language is 'English'</h4>
+    <div id="countries-eng"></div>
+    <p></p>
+
+    <h4>Countries - Currency is 'INR'</h4>
+    <div id="countries-inr"></div>
+    <p></p>
+
+    <button id="load-button">Load Data</button>
+
+
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#load-button").click(function () {
+
+                var ajax1 = $.ajax({
+                    "url": "https://restcountries.eu/rest/v2/name/ind"
+                });
+
+                var ajax2 = $.ajax({
+                    "url": "https://restcountries.eu/rest/v2/lang/en"
+                });
+
+                var ajax3 = $.ajax({
+                    "url": "https://restcountries.eu/rest/v2/currency/inr"
+                });
+                
+               $.when(ajax1, ajax2, ajax3).then(function(response1, response2, response3){
+
+                   var responseData1 = response1[0];
+                   var responseData2 = response2[0];
+                   var responseData3 = response3[0];
+
+                    if (responseData1.length > 0) {
+                        for (var i = 0; i < responseData1.length; i++) {
+                            $("#countries-ind").append(responseData1[i].name);
+                            $("#countries-ind").append("<br/>");
+                        }
+                    }
+
+                    if (responseData2.length > 0) {
+                        for (var j = 0; j < 5; j++) {
+                            $("#countries-eng").append(responseData2[j].name);
+                            $("#countries-eng").append("<br/>");
+                        }
+                    }
+
+                    if (responseData3.length > 0) {
+                        for (var k = 0; k < responseData3.length; k++) {
+                            $("#countries-inr").append(responseData3[k].name);
+                            $("#countries-inr").append("<br/>");
+                        }
+                    }
+
+               });
+                              
+
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

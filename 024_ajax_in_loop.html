@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AJAX in Loop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>AJAX in loop</h3>
+    <input type="text" name="countryname1" id="cname1" value="India">
+    <span id="capital1"></span>
+    <p></p>
+    
+    <input type="text" name="countryname2" id="cname2" value="France">
+    <span id="capital2"></span>
+    <p></p>
+    
+    <input type="text" name="countryname3" id="cname3" value="United States of America">
+    <span id="capital3"></span>
+    <p></p>
+    
+    <input type="text" name="countryname4" id="cname4" value="China">
+    <span id="capital4"></span>
+    <p></p>
+    
+    <input type="text" name="countryname5" id="cname5" value="Australia">
+    <span id="capital5"></span>
+    <p></p>
+
+    <button id="load-button">Load</button>
+</body>
+
+<script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+<script>
+
+    $(document).ready(function(){
+        $("#load-button").click(function(){
+            var index;
+            
+            for (index = 1; index <= 5; index++) { 
+
+                var currId = "cname" + index;
+                var currCapId = "capital" + index;
+                currValue = $("#"+currId).val();
+
+                var api_url = "https://restcountries.eu/rest/v2/name/"+currValue+"?fullText=true";
+                
+                $.ajax({
+                    url: api_url
+                }).done(function(data){                    
+                    if(data.length > 0){
+                        $("#"+currCapId).append(data[0].capital);
+                    }
+                }).fail(function(error){
+                    console.log(error);
+                });
+
+            }
+        });
+    });
+    
+</script>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blocking UI</title>
+    <style>
+        body{
+            padding-left: 20px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h3>Blocking UI</h3>
+    <p>Country</p>
+    <select id="country">
+        <option value="">-Select-</option>
+        <option value="India">India</option>
+        <option value="United States">United States</option>
+    </select>
+   
+    <p>State</p>
+    <select id="states">
+        <option value="">-Select-</option>	
+    </select>
+    <span id="ajax_result_placeholder"></span>
+    <span id="ajax_placeholder"></span>
+
+    <p>Gender</p>
+    <select id="gender">
+        <option value="">-Select-</option>	
+        <option value="M">Male</option>	
+        <option value="F">Female</option>	
+        <option value="U">Unknown</option>	
+    </select>
+
+    <p>Mobile</p>
+    <input type="text" id="mobile"/>
+
+
+
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#country").change(function(){
+			 	var sel_country = $(this).val();
+				$.ajax({
+                      async:false, //Blocks the UI
+					  url: "http://123.201.239.243:9988/iHelix/loadStates.json",
+					  type: "get",
+					  contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+					  dataType: "json",
+					  data: { 
+						  countryCode: sel_country						 
+						},				 
+					  beforeSend: function() {
+						  			$("#states").attr('disabled','disabled');
+						    		$('#ajax_placeholder').html("Loading...");
+						}
+				})
+				.done(function(data, textStatus, jqXHR) {	
+					var state_dropdown = $("#states");
+					state_dropdown.find('option').not(':first').remove();
+					if(data.states){
+						$.each(data.states, function(index, item) {
+							state_dropdown.append(  $("<option />").val(item.stateCode).text(item.stateName)  );
+					    });
+					}
+					
+					
+				})
+				.fail(function(jqXHR, textStatus, errorThrown){
+					var state_dropdown = $("#states");
+					state_dropdown.find('option').not(':first').remove();
+					$("#ajax_result_placeholder").html(errorThrown+". Please try again");
+					
+				})
+				.always(function(data, textStatus, jqXHR){
+					$('#ajax_placeholder').html('');
+					$("#states").removeAttr('disabled');
+				});
+            }); 
+        });
+    </script>
+</body>
+</html>

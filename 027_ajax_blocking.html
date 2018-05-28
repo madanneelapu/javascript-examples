@@ -25,8 +25,8 @@
     <select id="states">
         <option value="">-Select-</option>	
     </select>
-    <span id="ajax_result_placeholder"></span>
-    <span id="ajax_placeholder"></span>
+    <span id="ajax_error_placeholder"></span>
+    <span id="ajax_loading_placeholder"></span>
 
     <p>Gender</p>
     <select id="gender">
@@ -50,40 +50,37 @@
             $("#country").change(function(){
 			 	var sel_country = $(this).val();
 				$.ajax({
-                      async:false, //Blocks the UI
-					  url: "http://123.201.239.243:9988/iHelix/loadStates.json",
-					  type: "get",
-					  contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-					  dataType: "json",
-					  data: { 
-						  countryCode: sel_country						 
-						},				 
-					  beforeSend: function() {
-						  			$("#states").attr('disabled','disabled');
-						    		$('#ajax_placeholder').html("Loading...");
-						}
+                    async:false, //Blocks the UI
+                    url: "http://123.201.239.243:9988/iHelix/loadStates.json",
+                    type: "get",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    dataType: "json",
+                    data: { 
+                        countryCode: sel_country						 
+                    },				 
+                    beforeSend: function() {
+                        $("#states").attr('disabled','disabled');
+                        $('#ajax_loading_placeholder').html("Loading...");
+                    },
+                    success : function(data, textStatus, jqXHR){
+                        var state_dropdown = $("#states");
+                        state_dropdown.find('option').not(':first').remove();
+                        if(data.states){
+                            $.each(data.states, function(index, item) {
+                                state_dropdown.append(  $("<option />").val(item.stateCode).text(item.stateName)  );
+                            });
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        var state_dropdown = $("#states");
+                        state_dropdown.find('option').not(':first').remove();
+                        $("#ajax_error_placeholder").html(errorThrown+". Please try again");
+                    },
+                    complete: function(jqXHR, textStatus){
+                        $('#ajax_loading_placeholder').html('');
+					    $("#states").removeAttr('disabled');
+                    }                    
 				})
-				.done(function(data, textStatus, jqXHR) {	
-					var state_dropdown = $("#states");
-					state_dropdown.find('option').not(':first').remove();
-					if(data.states){
-						$.each(data.states, function(index, item) {
-							state_dropdown.append(  $("<option />").val(item.stateCode).text(item.stateName)  );
-					    });
-					}
-					
-					
-				})
-				.fail(function(jqXHR, textStatus, errorThrown){
-					var state_dropdown = $("#states");
-					state_dropdown.find('option').not(':first').remove();
-					$("#ajax_result_placeholder").html(errorThrown+". Please try again");
-					
-				})
-				.always(function(data, textStatus, jqXHR){
-					$('#ajax_placeholder').html('');
-					$("#states").removeAttr('disabled');
-				});
             }); 
         });
     </script>

@@ -10,23 +10,23 @@
 
 <body>
     <h3>AJAX in loop</h3>
-    <input type="text" name="countryname1" id="cname1" value="India">
+    <input type="text" name="country1" id="country1" value="India">
     <span id="capital1"></span>
     <p></p>
     
-    <input type="text" name="countryname2" id="cname2" value="France">
+    <input type="text" name="country2" id="country2" value="France">
     <span id="capital2"></span>
     <p></p>
     
-    <input type="text" name="countryname3" id="cname3" value="United States of America">
+    <input type="text" name="country3" id="country3" value="United States of America">
     <span id="capital3"></span>
     <p></p>
     
-    <input type="text" name="countryname4" id="cname4" value="China">
+    <input type="text" name="country4" id="country4" value="China">
     <span id="capital4"></span>
     <p></p>
     
-    <input type="text" name="countryname5" id="cname5" value="Australia">
+    <input type="text" name="country5" id="country5" value="Australia">
     <span id="capital5"></span>
     <p></p>
 
@@ -43,7 +43,7 @@
             
             for (index = 1; index <= 5; index++) { 
 
-                var currId = "cname" + index;
+                var currId = "country" + index;
                 var currCapId = "capital" + index;
                 currValue = $("#"+currId).val();
 

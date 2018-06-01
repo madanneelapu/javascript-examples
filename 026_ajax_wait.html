@@ -51,26 +51,18 @@
                    var responseData2 = response2[0];
                    var responseData3 = response3[0];
 
-                    if (responseData1.length > 0) {
-                        for (var i = 0; i < responseData1.length; i++) {
-                            $("#countries-ind").append(responseData1[i].name);
-                            $("#countries-ind").append("<br/>");
-                        }
-                    }
+                    $.each(responseData1, function(index, obj){
+                        $("#countries-ind").append(obj.name).append("<br/>");
+                    });
 
-                    if (responseData2.length > 0) {
-                        for (var j = 0; j < 5; j++) {
-                            $("#countries-eng").append(responseData2[j].name);
-                            $("#countries-eng").append("<br/>");
-                        }
-                    }
+                    $.each(responseData2, function(index, obj){
+                        $("#countries-eng").append(obj.name).append("<br/>");  
+                        if(index === 4) return false;                                  
+                    });
 
-                    if (responseData3.length > 0) {
-                        for (var k = 0; k < responseData3.length; k++) {
-                            $("#countries-inr").append(responseData3[k].name);
-                            $("#countries-inr").append("<br/>");
-                        }
-                    }
+                    $.each(responseData3, function(index, obj){
+                        $("#countries-inr").append(obj.name).append("<br/>");                                            
+                    });
 
                });
                               

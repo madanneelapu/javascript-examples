@@ -48,23 +48,22 @@
         $(document).ready(function () {
 
             $("#country").change(function(){
-			 	var sel_country = $(this).val();
-				$.ajax({
-                    async:false, //Blocks the UI
-                    url: "http://123.201.239.243:9988/iHelix/loadStates.json",
-                    type: "get",
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                    dataType: "json",
-                    data: { 
-                        countryCode: sel_country						 
-                    },				 
+
+                var sel_country = $(this).val();
+                
+                var url = "http://123.201.239.243:9988/iHelix/loadStates.json?countryCode="+sel_country;
+                var slowlyUrl = "http://slowwly.robertomurray.co.uk/delay/10000/url/"+url;
+                
+                $.ajax({
+                    async: false, //blocks UI
+                    url: slowlyUrl,
+                                 
                     beforeSend: function() {
-                        $("#states").attr('disabled','disabled');
+                        $("#states").find('option').not(':first').remove();
                         $('#ajax_loading_placeholder').html("Loading...");
                     },
                     success : function(data, textStatus, jqXHR){
                         var state_dropdown = $("#states");
-                        state_dropdown.find('option').not(':first').remove();
                         if(data.states){
                             $.each(data.states, function(index, item) {
                                 state_dropdown.append(  $("<option />").val(item.stateCode).text(item.stateName)  );
@@ -72,15 +71,14 @@
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown){
-                        var state_dropdown = $("#states");
-                        state_dropdown.find('option').not(':first').remove();
                         $("#ajax_error_placeholder").html(errorThrown+". Please try again");
                     },
                     complete: function(jqXHR, textStatus){
                         $('#ajax_loading_placeholder').html('');
-					    $("#states").removeAttr('disabled');
                     }                    
-				})
+                });
+
+                
             }); 
         });
     </script>

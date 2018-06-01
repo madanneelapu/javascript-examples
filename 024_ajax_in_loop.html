@@ -38,26 +38,33 @@
 <script>
 
     $(document).ready(function(){
+        
+        var myFun = function(index){
+
+            var currId = "country" + index;
+            var currCapId = "capital" + index;
+            var currValue = $("#"+currId).val();
+
+            var api_url = "https://restcountries.eu/rest/v2/name/"+currValue+"?fullText=true";
+            
+            $.ajax({
+                url: api_url,
+                success: function(data){                    
+                    if(data.length > 0){
+                        var capName = data[0].capital;
+                        $("#"+currCapId).append(capName);
+                    }
+                }
+            });
+        };
+
+
         $("#load-button").click(function(){
             var index;
             
             for (index = 1; index <= 5; index++) { 
 
-                var currId = "country" + index;
-                var currCapId = "capital" + index;
-                currValue = $("#"+currId).val();
-
-                var api_url = "https://restcountries.eu/rest/v2/name/"+currValue+"?fullText=true";
-                
-                $.ajax({
-                    url: api_url
-                }).done(function(data){                    
-                    if(data.length > 0){
-                        $("#"+currCapId).append(data[0].capital);
-                    }
-                }).fail(function(error){
-                    console.log(error);
-                });
+                myFun(index); //Creates a new scope
 
             }
         });

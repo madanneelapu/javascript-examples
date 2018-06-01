@@ -34,34 +34,29 @@
                 $.ajax({
                     "url":"https://restcountries.eu/rest/v2/name/ind"
                 }).then(function(response){
-                    if(response.length > 0){
-                        for(var i = 0; i < response.length; i++){
-                            $("#countries-ind").append(response[i].name);
-                            $("#countries-ind").append("<br/>");
-                        }
-                    }
+                    $.each(response, function(index, obj){
+                        $("#countries-ind").append(obj.name).append("<br/>");
+                    });
 
                     return $.ajax({
-                        "url":"https://restcountries.eu/rest/v2/lang/en"
+                        "url":"https://restcountries.eu/rest/v2/lsdsang/en"
                     });
                 }).then(function(response){                    
-                    if(response.length > 0){
-                        for(var i = 0; i < 5; i++){
-                            $("#countries-eng").append(response[i].name);
-                            $("#countries-eng").append("<br/>");
-                        }
-                    }
+                    $.each(response, function(index, obj){
+                        $("#countries-eng").append(obj.name).append("<br/>");  
+                        if(index === 4) return false;                                  
+                    });
 
                     return $.ajax({
                         "url":"https://restcountries.eu/rest/v2/currency/inr"
                     });
                 }).then(function(response){
-                    if(response.length > 0){
-                        for(var i = 0; i < response.length; i++){
-                            $("#countries-inr").append(response[i].name);
-                            $("#countries-inr").append("<br/>");
-                        }
-                    }
+                    $.each(response, function(index, obj){
+                        $("#countries-inr").append(obj.name).append("<br/>");                                            
+                    });
+                },
+                function(jqXHR, textStatus, errorThrown){
+                    console.log(errorThrown+". Please try again");
                 });
 
 

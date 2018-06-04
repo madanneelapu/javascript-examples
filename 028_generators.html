@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Generators</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>Generators</h3>
+
+    <h4>Countries - Name contains with 'Ind'</h4>
+    <div id="countries-ind"></div>
+    <p></p>
+
+    <h4>Countries - Language is 'English'</h4>
+    <div id="countries-eng"></div>
+    <p></p>
+
+    <h4>Countries - Currency is 'INR'</h4>
+    <div id="countries-inr"></div>
+    <p></p>
+
+    <button id="load-button">Load Data</button>
+
+
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            var myGen = function*(){
+                var a = yield $.ajax({
+                    "url": "https://restcountries.eu/rest/v2/name/ind"
+                });
+                
+                a.then(function(response){
+                    $.each(response, function(index, obj){
+                        $("#countries-ind").append(obj.name).append("<br/>");
+                    });
+                });
+
+                var b = yield $.ajax({
+                    "url": "https://restcountries.eu/rest/v2/lang/en"
+                });
+
+                b.then(function(response){
+                    $.each(response, function(index, obj){
+                        $("#countries-eng").append(obj.name).append("<br/>");  
+                        if(index === 4) return false;      
+                    });
+                });
+                
+               var c =  yield $.ajax({
+                    "url": "https://restcountries.eu/rest/v2/currency/inr"
+                });
+                
+                c.then(function(response){
+                    $.each(response, function(index, obj){
+                        $("#countries-inr").append(obj.name).append("<br/>");         
+                    });
+                });
+            }
+
+            
+            $("#load-button").click(function () {
+               
+                var itr = myGen();
+                var responseObj = itr.next();
+                
+               /*  responseObj.value.then(function(response){
+                    $.each(response, function(index, obj){
+                        $("#countries-ind").append(obj.name).append("<br/>");
+                    });
+                }); */
+               
+                responseObj = itr.next(responseObj.value);
+                /* responseObj.value.then(function(response){
+                    $.each(response, function(index, obj){
+                        $("#countries-eng").append(obj.name).append("<br/>");  
+                        if(index === 4) return false;      
+                    });
+                }); */
+
+                responseObj = itr.next(responseObj.value);
+                /* responseObj.value.then(function(response){
+                    $.each(response, function(index, obj){
+                        $("#countries-inr").append(obj.name).append("<br/>");         
+                    });
+                }); */
+                              
+                itr.next(responseObj.value);
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

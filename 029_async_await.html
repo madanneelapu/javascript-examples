@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Async Await</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>Async Await</h3>
+
+    <h4>Countries - Name contains 'India'</h4>
+    <div id="countries-ind"></div>
+    <p></p>
+
+    <h4>Countries - Language is 'Hindi'</h4>
+    <div id="countries-hin"></div>
+    <p></p>
+
+    <h4>Countries - Currency is 'INR'</h4>
+    <div id="countries-inr"></div>
+    <p></p>
+
+    <button id="load-button">Load Data</button>
+
+
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+    <script>
+
+        
+
+        $(document).ready(function () {
+
+            async function loadData(){
+                try{
+                    var countries_IND = await $.getJSON("https://restcountries.eu/rest/v2/name/india");
+
+                    $.each(countries_IND, function(index, obj){
+                        $("#countries-ind").append(obj.name).append("<br/>");
+                    });              
+
+                    var countries_HIN = await $.getJSON("https://restcountries.eu/rest/v2/lang/hi");
+
+                    $.each(countries_HIN, function(index, obj){
+                        $("#countries-hin").append(obj.name).append("<br/>");                               
+                    });
+
+                    var countries_INR = await  $.getJSON("https://restcountries.eu/rest/v2/currency/inr");
+
+                    $.each(countries_INR, function(index, obj){
+                        $("#countries-inr").append(obj.name).append("<br/>");                                            
+                    });
+                }catch(ex){
+                    console.log(ex)
+                }
+            };
+
+            
+            $("#load-button").click(function () {
+                loadData();
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

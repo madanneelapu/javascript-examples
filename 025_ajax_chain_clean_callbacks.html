@@ -9,14 +9,14 @@
 </head>
 
 <body>
-    <h3>Chaining AJAX Calls</h3>
+    <h3>Clean Callbacks</h3>
 
-    <h4>Countries - Name contains with 'Ind'</h4>
+    <h4>Countries - Name contains 'India'</h4>
     <div id="countries-ind"></div>
     <p></p>
 
-    <h4>Countries - Language is 'English'</h4>
-    <div id="countries-eng"></div>
+    <h4>Countries - Language is 'Hindi'</h4>
+    <div id="countries-hin"></div>
     <p></p>
 
     <h4>Countries - Currency is 'INR'</h4>
@@ -34,7 +34,7 @@
             $("#load-button").click(function () {
 
                 $.ajax({
-                    "url": "https://restcountries.eu/rest/v2/name/ind",
+                    "url": "https://restcountries.eu/rest/v2/name/india",
                     "success": successHandler1,
                     "error": handleError
                 });
@@ -45,7 +45,7 @@
                     });
 
                     $.ajax({
-                        "url": "https://restcountries.eu/rest/v2/lang/en",
+                        "url": "https://restcountries.eu/rest/v2/lang/hi",
                         "success": successHandler2,
                         "error": handleError
                     });
@@ -54,8 +54,7 @@
 
                 function successHandler2(response) {
                     $.each(response, function (index, obj) {
-                        $("#countries-eng").append(obj.name).append("<br/>");
-                        if (index === 4) return false;
+                        $("#countries-hin").append(obj.name).append("<br/>");
                     });
 
                     $.ajax({

@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AJAX calls - One after another</title>
+    <title>Promises - Resolving Sequentially</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h3>Chaining AJAX Calls</h3>
+    <h3>Promises - Resolving Sequentially </h3>
 
-    <h4>Countries - Name contains with 'Ind'</h4>
+    <h4>Countries - Name contains 'India'</h4>
     <div id="countries-ind"></div>
     <p></p>
 
-    <h4>Countries - Language is 'English'</h4>
-    <div id="countries-eng"></div>
+    <h4>Countries - Language is 'Hindi'</h4>
+    <div id="countries-hin"></div>
     <p></p>
 
     <h4>Countries - Currency is 'INR'</h4>
@@ -32,19 +32,18 @@
             $("#load-button").click(function(){
 
                 $.ajax({
-                    "url":"https://restcountries.eu/rest/v2/name/ind"
+                    "url":"https://restcountries.eu/rest/v2/name/india"
                 }).then(function(response){
                     $.each(response, function(index, obj){
                         $("#countries-ind").append(obj.name).append("<br/>");
                     });
 
                     return $.ajax({
-                        "url":"https://restcountries.eu/rest/v2/lsdsang/en"
+                        "url":"https://restcountries.eu/rest/v2/lang/hi"
                     });
                 }).then(function(response){                    
                     $.each(response, function(index, obj){
-                        $("#countries-eng").append(obj.name).append("<br/>");  
-                        if(index === 4) return false;                                  
+                        $("#countries-hin").append(obj.name).append("<br/>");                          
                     });
 
                     return $.ajax({
@@ -62,6 +61,7 @@
 
             });
         });
+
     </script>
 </body>
 </html>

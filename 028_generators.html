@@ -11,91 +11,51 @@
 <body>
     <h3>Generators</h3>
 
-    <h4>Countries - Name contains with 'Ind'</h4>
+    <h4>Countries - Name contains 'India'</h4>
     <div id="countries-ind"></div>
     <p></p>
 
-    <h4>Countries - Language is 'English'</h4>
-    <div id="countries-eng"></div>
+    <h4>Countries - Language is 'Hindi'</h4>
+    <div id="countries-hin"></div>
     <p></p>
 
     <h4>Countries - Currency is 'INR'</h4>
     <div id="countries-inr"></div>
     <p></p>
 
-    <button id="load-button">Load Data</button>
+    <!-- <button id="load-button">Load Data</button> -->
 
 
     <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
     <script>
 
-        $(document).ready(function () {
-
-            var myGen = function*(){
-                var a = yield $.ajax({
-                    "url": "https://restcountries.eu/rest/v2/name/ind"
-                });
-                
-                a.then(function(response){
-                    $.each(response, function(index, obj){
-                        $("#countries-ind").append(obj.name).append("<br/>");
-                    });
-                });
-
-                var b = yield $.ajax({
-                    "url": "https://restcountries.eu/rest/v2/lang/en"
-                });
-
-                b.then(function(response){
-                    $.each(response, function(index, obj){
-                        $("#countries-eng").append(obj.name).append("<br/>");  
-                        if(index === 4) return false;      
-                    });
-                });
-                
-               var c =  yield $.ajax({
-                    "url": "https://restcountries.eu/rest/v2/currency/inr"
-                });
-                
-                c.then(function(response){
-                    $.each(response, function(index, obj){
-                        $("#countries-inr").append(obj.name).append("<br/>");         
-                    });
-                });
+            function makeAjaxCall(url){
+                fetch(url).then(response => response.json()).then(data => gen.next(data));
             }
 
-            
-            $("#load-button").click(function () {
-               
-                var itr = myGen();
-                var responseObj = itr.next();
+            function *myGen(){
+                var countries_IND = yield makeAjaxCall("https://restcountries.eu/rest/v2/name/india"); 
+                $.each(countries_IND, function(index, obj){
+                    $("#countries-ind").append(obj.name).append("<br/>");
+                });
                 
-               /*  responseObj.value.then(function(response){
-                    $.each(response, function(index, obj){
-                        $("#countries-ind").append(obj.name).append("<br/>");
-                    });
-                }); */
+                var countries_HIN = yield makeAjaxCall("https://restcountries.eu/rest/v2/lang/hi");   
+                $.each(countries_HIN, function(index, obj){
+                    $("#countries-hin").append(obj.name).append("<br/>");      
+                });    
+
+                var countries_INR = yield makeAjaxCall("https://restcountries.eu/rest/v2/currency/inr");
+                $.each(countries_INR, function(index, obj){
+                    $("#countries-inr").append(obj.name).append("<br/>");         
+                });                             
+            }
                
-                responseObj = itr.next(responseObj.value);
-                /* responseObj.value.then(function(response){
-                    $.each(response, function(index, obj){
-                        $("#countries-eng").append(obj.name).append("<br/>");  
-                        if(index === 4) return false;      
-                    });
-                }); */
 
-                responseObj = itr.next(responseObj.value);
-                /* responseObj.value.then(function(response){
-                    $.each(response, function(index, obj){
-                        $("#countries-inr").append(obj.name).append("<br/>");         
-                    });
-                }); */
-                              
-                itr.next(responseObj.value);
-            });
-        });
-
+            var gen = myGen();
+            gen.next();
+           
+        
     </script>
 
 </body>

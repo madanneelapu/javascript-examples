@@ -36,19 +36,19 @@
 
             async function loadData(){
                 try{
-                    var countries_IND = await $.getJSON("https://restcountries.eu/rest/v2/name/india");
+                    var countries_IND = await $.ajax("https://restcountries.eu/rest/v2/name/india");
 
                     $.each(countries_IND, function(index, obj){
                         $("#countries-ind").append(obj.name).append("<br/>");
                     });              
 
-                    var countries_HIN = await $.getJSON("https://restcountries.eu/rest/v2/lang/hi");
+                    var countries_HIN = await $.ajax("https://restcountries.eu/rest/v2/lang/hi");
 
                     $.each(countries_HIN, function(index, obj){
                         $("#countries-hin").append(obj.name).append("<br/>");                               
                     });
 
-                    var countries_INR = await  $.getJSON("https://restcountries.eu/rest/v2/currency/inr");
+                    var countries_INR = await  $.ajax("https://restcountries.eu/rest/v2/currency/inr");
 
                     $.each(countries_INR, function(index, obj){
                         $("#countries-inr").append(obj.name).append("<br/>");                                            

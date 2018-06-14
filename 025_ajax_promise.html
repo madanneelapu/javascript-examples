@@ -13,8 +13,18 @@
     crossorigin="anonymous"></script>
 
     <script>
-        var promiseObj = $.ajax({"url":"https://restcountries.eu/rest/v2/name/india"});
-        console.log(promiseObj);
+       $.ajax("https://restcountries.eu/rest/v2/name/india")
+        .done(function(countries){
+            $.each(countries, function(index, obj){
+                console.log(obj.name);
+            });
+        })
+        .fail(function(jqXHR, textStatus, errorThrown){
+            console.log(errorThrown+". Please try again");
+        })
+        .always(function(){
+            console.log("AJAX completed");
+        });
 
     </script>
 </body>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES6 Generators</title>
+    <style>
+        body{
+            padding-left: 30px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif
+        }
+    </style>
+</head>
+<body>
+    <h1>ES6 Generators</h1>
+    <div id="numbers"></div>
+    <button id="btn-gen">Generate</button>
+
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+    <script>
+         
+        function *myGenerator(){
+            var param = yield 1;
+            yield 2 * param;
+            yield 3;
+        }
+
+        var itr = myGenerator();
+
+        $("#btn-gen").click(function(){
+            var obj = itr.next(2);
+            console.log(obj);
+            var num = obj.value;
+           $("#numbers").append(`<p>${num}</p>`);
+        });
+    </script>
+</body>
+</html>

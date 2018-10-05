@@ -13,28 +13,22 @@
     </style>
 </head>
 <body>
-    <h1>ES6 Generators</h1>
-    <div id="numbers"></div>
-    <button id="btn-gen">Generate</button>
+    <h1>ES6 Generators</h1>  
 
     <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
     <script>
          
-        function *myGenerator(){
-            var param = yield 1;
-            yield 2 * param;
-            yield 3;
+        function* myGen(){
+           yield console.log('a');
+            console.log('b');
+            console.log('c');
         }
 
-        var itr = myGenerator();
+        var itr = myGen();
+        itr.next();
+        itr.next();
 
-        $("#btn-gen").click(function(){
-            var obj = itr.next(2);
-            console.log(obj);
-            var num = obj.value;
-           $("#numbers").append(`<p>${num}</p>`);
-        });
     </script>
 </body>
 </html>

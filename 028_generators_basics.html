@@ -5,29 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ES6 Generators</title>
-    <style>
-        body{
-            padding-left: 30px;
-            font-family: Verdana, Geneva, Tahoma, sans-serif
-        }
-    </style>
 </head>
 <body>
     <h1>ES6 Generators</h1>  
-
-    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script>
+   
     <script>
          
         function* myGen(){
-           yield console.log('a');
-            console.log('b');
-            console.log('c');
+            var num1 = yield 'a';
+            var num2 = yield 'b';
+            var num3 = yield 'c';           
+            return (num1 + num2 + num3);
         }
 
         var itr = myGen();
-        itr.next();
-        itr.next();
+        console.log(itr.next());
+        console.log(itr.next(10)); 
+        console.log(itr.next(20)); 
+        console.log(itr.next(30));    
+
 
     </script>
 </body>

@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Generators</title>
+    <title>ES6 Generators + AJAX</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-    <h3>Generators</h3>
+    <h3>ES6 Generators + AJAX</h3>
 
     <h4>Countries - Name contains 'India'</h4>
     <div id="countries-ind"></div>
@@ -23,9 +23,6 @@
     <div id="countries-inr"></div>
     <p></p>
 
-    <!-- <button id="load-button">Load Data</button> -->
-
-
     <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
     <script>
@@ -34,7 +31,7 @@
                 fetch(url).then(response => response.json()).then(data => gen.next(data));
             }
 
-            function *myGen(){
+            function* myGen(){
                 var countries_IND = yield makeAjaxCall("https://restcountries.eu/rest/v2/name/india"); 
                 $.each(countries_IND, function(index, obj){
                     $("#countries-ind").append(obj.name).append("<br/>");

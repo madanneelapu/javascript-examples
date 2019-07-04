@@ -1,3 +1,17 @@
+// Object - Enhancements in ES6
+
+const person = {
+    name: 'madan',
+    walk: function(){
+        console.log('old way...');
+    },
+    talk() {
+        console.log('new way...');
+    }
+}
+
+person.talk();
+
 //Object Literals - Enhancements in ES6
 
 function makeObject(name, state, country){

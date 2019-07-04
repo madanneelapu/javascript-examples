@@ -30,3 +30,14 @@ sum(...nums4);      //30
 const str = 'joykare';
 var strArr = [...str];
 console.log(strArr);
+
+
+// spread operator on objects
+const myFirstObj = {name: 'madan'};
+const mySecondObj = {age: 29};
+
+const combined = {...myFirstObj, ...mySecondObj, location: 'India'};
+console.log(combined);
+
+const clonedObj = {...myFirstObj};
+console.log(clonedObj);

@@ -4,4 +4,9 @@ function jarvis(){
 
 function suit(){
 	console.log('initiating suit sequence ...');
+	flares();
+}
+
+function flares(){
+	console.log('ejecting flares...******');
 }

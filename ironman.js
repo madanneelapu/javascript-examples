@@ -1,3 +1,7 @@
 function jarvis(){
-	console.log('suit up');
+	suit();
+}
+
+function suit(){
+	console.log('initiating suit sequence ...');
 }

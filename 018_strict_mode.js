@@ -1,10 +1,10 @@
 "use strict";
 
 
-/*var firstName = "Madan";
-firstname = "Mohan"; //Typo - Reference error
+var firstName = "Madan";
+// firstname = "Mohan"; //Typo - Reference error
 
-console.log(firstName); */
+console.log(firstName);
 
 
 

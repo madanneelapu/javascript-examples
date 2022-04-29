@@ -12,5 +12,5 @@ var calculate = function(myFn, firstNum, secNum){
   console.log(value)
 };
 
-calculate(greet);
-calculate(sum, 10, 20);
+calculate(greet); // Hello
+calculate(sum, 10, 20); // 30

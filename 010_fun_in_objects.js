@@ -13,7 +13,7 @@ var employee = {
 };
 
 console.log(employee.id);
-employee.printdetails();
+employee.printdetails(); // 10225 Madan
 var leaves = employee.availableleaves();
-console.log(leaves);
+console.log(leaves); // 18
 

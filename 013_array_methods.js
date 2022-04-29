@@ -23,6 +23,12 @@ names.unshift("Balmer");
 names.splice(2,0,'jennifer','Aston');
 console.log(names); // ['john', 'mike', 'jennifer', 'Aston', 'jim', 'bill', 'steve', 'mark', 'gorge', 'kim']
 
+names.splice(2,3) // removes from source and returns ['jim', 'bill', 'steve']  
+
+names.splice(2,1,'jennifer','Aston'); // removes from source and returns ['jim'] 
+console.log(names);  //['john', 'mike', 'jennifer', 'Aston', 'bill', 'steve', 'mark', 'gorge', 'kim']
+
+
 //Slice-out a piece of array into a new array 
 //elements from the start argument, and up to (but not including) the end argument.
 //Slice does not remove any elements from source array

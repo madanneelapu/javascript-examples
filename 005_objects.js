@@ -1,7 +1,7 @@
 //Writing
 
 var myObj = {};
-console.log(typeof(myObj));
+console.log(typeof(myObj)); // Object
 
 myObj.myPropOne = 10;
 console.log(myObj);
@@ -38,7 +38,7 @@ var student = {
 
 console.log(student);
 console.log(student.class);
-console.log(typeof(student.class));
+console.log(typeof(student.class)); // Number
 
 //Dot Notation
 console.log(student.name);
@@ -92,9 +92,9 @@ var emp4 = { // no change in data
   }  
 };
 
-console.log(employee === emp2);
-console.log(employee === emp3);
-console.log(employee === emp4);
+console.log(employee === emp2); // True
+console.log(employee === emp3); // False
+console.log(employee === emp4); // False
 
 
 //Delete Operator
